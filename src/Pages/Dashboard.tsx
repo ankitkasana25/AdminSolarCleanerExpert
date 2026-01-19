@@ -17,7 +17,7 @@ const Dashboard = observer(() => {
 
     return (
         <Box>
-            <Typography variant="h4" sx={{ mb: 4, fontWeight: "bold" }}>
+            <Typography variant="h4" sx={{ mb: 4, fontWeight: 800, fontFamily: "'Outfit', sans-serif", color: "#1a1a1a" }}>
                 Dashboard Overview
             </Typography>
 

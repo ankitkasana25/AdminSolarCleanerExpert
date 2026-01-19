@@ -56,55 +56,110 @@ const Sidebar = observer(({ open, onClose }: { open: boolean; onClose: () => voi
   }
 
   const sidebarContent = (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <Box sx={{ p: 2, textAlign: "center" }}>
-        <Typography variant="h6" sx={{ fontWeight: "bold", color: "primary.main" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%", bgcolor: "#fff", borderRight: "1px solid rgba(0,0,0,0.05)" }}>
+      <Box sx={{ p: 3, pt: 4, textAlign: "center" }}>
+        <Typography variant="h5" sx={{
+          fontWeight: 800,
+          color: "#1a1a1a",
+          fontFamily: "'Outfit', sans-serif",
+          letterSpacing: -0.5,
+          mb: 0.5
+        }}>
           Solar Cleaning
         </Typography>
-        <Typography variant="caption" color="textSecondary">
+        <Typography variant="caption" sx={{
+          color: "text.secondary",
+          letterSpacing: 1,
+          textTransform: "uppercase",
+          fontWeight: 600,
+          fontSize: "0.7rem",
+          opacity: 0.8
+        }}>
           Expert Admin
         </Typography>
       </Box>
 
-      <Divider />
+      <Box sx={{ px: 2, mb: 1 }}>
+        <Divider sx={{ opacity: 0.6 }} />
+      </Box>
 
-      <List sx={{ flex: 1 }}>
+
+      <List sx={{ flex: 1, px: 2, pt: 2 }}>
         {navItems.map((item) => {
           const isActive = pathname === item.path
           return (
-            <ListItem disablePadding key={item.path}>
+            <ListItem disablePadding key={item.path} sx={{ mb: 1 }}>
               <ListItemButton
                 onClick={() => {
                   navigate(item.path)
                   if (isMobile) onClose()
                 }}
                 sx={{
-                  backgroundColor: isActive ? "action.selected" : "transparent",
-                  borderLeft: isActive ? "4px solid" : "4px solid transparent",
-                  borderLeftColor: isActive ? "primary.main" : "transparent",
+                  borderRadius: "12px",
+                  py: 1.5,
+                  px: 2,
+                  backgroundColor: isActive ? "rgba(13, 129, 252, 0.08)" : "transparent",
+                  color: isActive ? "#0d81fc" : "#64748b",
+                  transition: "all 0.2s ease-in-out",
                   "&:hover": {
-                    backgroundColor: "action.hover",
+                    backgroundColor: isActive ? "rgba(13, 129, 252, 0.12)" : "rgba(0,0,0,0.03)",
+                    transform: "translateX(3px)"
                   },
                 }}
               >
-                <ListItemIcon sx={{ color: isActive ? "primary.main" : "inherit" }}>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.label} />
+                <ListItemIcon sx={{
+                  minWidth: 40,
+                  color: isActive ? "#0d81fc" : "#94a3b8",
+                  transition: "color 0.2s"
+                }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.label}
+                  primaryTypographyProps={{
+                    fontWeight: isActive ? 700 : 500,
+                    fontSize: "0.95rem",
+                    fontFamily: isActive ? "'Outfit', sans-serif" : "'Inter', sans-serif"
+                  }}
+                />
               </ListItemButton>
             </ListItem>
           )
         })}
       </List>
 
-      <Divider />
-
       <Box sx={{ p: 2 }}>
-        <Typography variant="caption" display="block" sx={{ mb: 1 }}>
-          {authStore.user?.name}
-        </Typography>
-        <Typography variant="caption" display="block" sx={{ mb: 2, color: "textSecondary" }}>
-          {authStore.user?.role}
-        </Typography>
-        <Button fullWidth variant="outlined" startIcon={<LogoutIcon />} size="small" onClick={handleLogout}>
+        <Box sx={{
+          p: 2,
+          borderRadius: "16px",
+          bgcolor: "#f8fafc",
+          mb: 2,
+          border: "1px solid #e2e8f0"
+        }}>
+          <Typography variant="subtitle2" display="block" sx={{ mb: 0.5, fontWeight: 700, color: "#334155" }}>
+            {authStore.user?.name}
+          </Typography>
+          <Typography variant="caption" display="block" sx={{ color: "#64748b", fontWeight: 500 }}>
+            {authStore.user?.role?.toUpperCase()}
+          </Typography>
+        </Box>
+        <Button
+          fullWidth
+          variant="outlined"
+          startIcon={<LogoutIcon />}
+          size="small"
+          onClick={handleLogout}
+          sx={{
+            borderRadius: "10px",
+            borderColor: "#e2e8f0",
+            color: "#64748b",
+            "&:hover": {
+              borderColor: "#cbd5e1",
+              bgcolor: "#f1f5f9",
+              color: "#0f172a"
+            }
+          }}
+        >
           Logout
         </Button>
       </Box>
@@ -120,6 +175,8 @@ const Sidebar = observer(({ open, onClose }: { open: boolean; onClose: () => voi
         sx={{
           "& .MuiDrawer-paper": {
             width: 280,
+            borderRight: "none",
+            boxShadow: "10px 0 50px rgba(0,0,0,0.1)"
           },
         }}
       >
@@ -137,7 +194,9 @@ const Sidebar = observer(({ open, onClose }: { open: boolean; onClose: () => voi
         "& .MuiDrawer-paper": {
           width: 280,
           boxSizing: "border-box",
-          backgroundColor: "#fafafa",
+          backgroundColor: "#fff",
+          borderRight: "none",
+          boxShadow: "4px 0 24px rgba(0,0,0,0.02)"
         },
       }}
     >

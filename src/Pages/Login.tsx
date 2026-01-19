@@ -58,6 +58,7 @@ const Login = observer(() => {
                 }} />
 
                 <Typography variant="h2" sx={{
+                    fontSize: "22px",
                     fontWeight: 800,
                     mb: 2,
                     letterSpacing: -1.5,

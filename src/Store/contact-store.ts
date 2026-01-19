@@ -13,10 +13,7 @@ export interface ContactQuery {
   updatedAt: string
 }
 
-interface ContactListResponse {
-  queries: ContactQuery[]
-  total: number
-}
+
 
 class ContactStore {
   queries: ContactQuery[] = []
@@ -31,7 +28,7 @@ class ContactStore {
         id: "Q1",
         userId: "U1",
         userName: "John Doe",
-        message: "Need help with cleaning schedule",
+        message: "Need help with cleaning schedule for next month.",
         attachments: [],
         status: "new",
         assignedTo: null,
@@ -42,13 +39,24 @@ class ContactStore {
         id: "Q2",
         userId: "U2",
         userName: "Jane Smith",
-        message: "Panel damage report",
-        attachments: [],
+        message: "I found a crack on one of the panels after the last service.",
+        attachments: ["image1.jpg", "image2.jpg"],
         status: "in-progress",
         assignedTo: "Admin",
-        createdAt: new Date().toISOString(),
+        createdAt: new Date(Date.now() - 86400000).toISOString(),
         updatedAt: new Date().toISOString(),
       },
+      {
+        id: "Q3",
+        userId: "U3",
+        userName: "Mike Ross",
+        message: "Requesting a quote for a large commercial installation.",
+        attachments: [],
+        status: "resolved",
+        assignedTo: "Sales Team",
+        createdAt: new Date(Date.now() - 172800000).toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
     ]
   }
 
@@ -56,10 +64,13 @@ class ContactStore {
     this.isLoading = true
     this.error = null
     try {
-      const response = await apiClient.get<ContactListResponse>("/contact-queries")
-      this.queries = response.data.queries
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      // const response = await apiClient.get<ContactListResponse>("/contact-queries")
+      // this.queries = response.data.queries
     } catch (error: any) {
-      this.error = error.response?.data?.message || "Failed to fetch queries"
+      console.error("Failed to fetch queries", error)
+      // this.error = error.response?.data?.message || "Failed to fetch queries"
     } finally {
       this.isLoading = false
     }

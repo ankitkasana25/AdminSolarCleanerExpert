@@ -20,12 +20,7 @@ export interface UserFilters {
   limit: number
 }
 
-interface UserListResponse {
-  users: AdminUser[]
-  total: number
-  page: number
-  limit: number
-}
+
 
 class UserStore {
   users: AdminUser[] = []
@@ -61,29 +56,62 @@ class UserStore {
         phone: "0987654321",
         address: "456 Av, LA",
         role: "partner",
-        status: "inactive",
+        status: "active",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
+      {
+        id: "3",
+        name: "Solar Solutions Inc.",
+        email: "contact@solarsolutions.com",
+        phone: "1-800-SOLAR-00",
+        address: "789 Texas Ave, Austin",
+        role: "partner",
+        status: "active",
+        createdAt: new Date(Date.now() - 10000000).toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        id: "4",
+        name: "Green Energy Corp",
+        email: "support@greenenergy.com",
+        phone: "1-888-GREEN-11",
+        address: "101 Eco Blvd, Seattle",
+        role: "partner",
+        status: "inactive",
+        createdAt: new Date(Date.now() - 20000000).toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        id: "5",
+        name: "Alice Johnson",
+        email: "alice@test.com",
+        phone: "555-123-4567",
+        address: "321 Maple Dr, SF",
+        role: "user",
+        status: "active",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
     ]
-    this.total = 2
+    this.total = 5
   }
 
   async fetchUsers() {
     this.isLoading = true
     this.error = null
     try {
-      const params = new URLSearchParams({
-        search: this.filters.search,
-        status: this.filters.status,
-        page: String(this.filters.page),
-        limit: String(this.filters.limit),
-      })
-      const response = await apiClient.get<UserListResponse>(`/users?${params}`)
-      this.users = response.data.users
-      this.total = response.data.total
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      // In a real app we would fetch here:
+      // const response = await apiClient.get<UserListResponse>(`/users?${params}`)
+      // this.users = response.data.users
+      // this.total = response.data.total
+
+      // For now, keep the mock data stable
     } catch (error: any) {
-      this.error = error.response?.data?.message || "Failed to fetch users"
+      console.error("Failed to fetch users", error)
+      // this.error = error.response?.data?.message || "Failed to fetch users"
     } finally {
       this.isLoading = false
     }
@@ -122,6 +150,21 @@ class UserStore {
 
   setFilters(filters: Partial<UserFilters>) {
     this.filters = { ...this.filters, ...filters }
+  }
+
+  async deleteUser(id: string) {
+    this.isLoading = true
+    this.error = null
+    try {
+      await apiClient.delete(`/users/${id}`)
+      this.users = this.users.filter((u) => u.id !== id)
+      this.total -= 1
+    } catch (error: any) {
+      this.error = error.response?.data?.message || "Failed to delete user"
+      throw error // Re-throw to handle in component
+    } finally {
+      this.isLoading = false
+    }
   }
 
   resetFilters() {

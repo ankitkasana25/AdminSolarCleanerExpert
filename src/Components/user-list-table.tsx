@@ -19,14 +19,26 @@ import {
   Chip,
   IconButton,
 } from "@mui/material"
-import { Edit as EditIcon, Visibility as EyeIcon } from "@mui/icons-material"
+import { Delete as DeleteIcon } from "@mui/icons-material"
 import { observer } from "mobx-react-lite"
-import { Link } from "react-router-dom"
+
 import { userStore } from "@/Store/user-store"
 
 const UserListTable = observer(() => {
   const handleChangePage = (_event: unknown, newPage: number) => {
     userStore.setFilters({ page: newPage + 1 })
+  }
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await userStore.deleteUser(id)
+        window.alert("User deleted successfully!")
+      } catch (error) {
+        console.error(error)
+        window.alert("Failed to delete user.")
+      }
+    }
   }
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,23 +105,22 @@ const UserListTable = observer(() => {
                 </TableCell>
                 <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell>
-                  <Link to={`/users/${user.id}`}>
-                    <IconButton size="small" title="View">
-                      <EyeIcon fontSize="small" />
-                    </IconButton>
-                  </Link>
-                  <Link to={`/users/${user.id}/edit`}>
-                    <IconButton size="small" title="Edit">
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                  </Link>
+
+                  <IconButton
+                    size="small"
+                    title="Delete"
+                    onClick={() => handleDelete(user.id)}
+                    color="error"
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50]}
+          rowsPerPageOptions={[10, 25, 50, 100]}
           component="div"
           count={userStore.total}
           rowsPerPage={userStore.filters.limit}

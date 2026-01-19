@@ -8,6 +8,11 @@ import Login from "@/Pages/Login"
 import { authStore } from "@/Store/auth-store"
 import { observer } from "mobx-react-lite"
 
+import UserManagementPage from "@/Pages/UserManagement"
+import OrderDetailsPage from "@/Pages/OrderDetails"
+import PartnersPage from "@/Pages/Partners"
+import ContactQueriesPage from "@/Pages/ContactQueries"
+
 const ProtectedRoute = observer(({ children }: { children: React.ReactNode }) => {
   if (!authStore.isAuthenticated) {
     return <Navigate to="/login" replace />
@@ -29,6 +34,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+
         <Route
           path="/users"
           element={
@@ -38,6 +45,24 @@ function App() {
           }
         />
         <Route
+          path="/users/new"
+          element={
+            <ProtectedRoute>
+              <UserManagementPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/:id/edit"
+          element={
+            <ProtectedRoute>
+              <UserManagementPage />
+            </ProtectedRoute>
+          }
+        />
+
+
+        <Route
           path="/orders"
           element={
             <ProtectedRoute>
@@ -46,10 +71,35 @@ function App() {
           }
         />
         <Route
+          path="/orders/:id"
+          element={
+            <ProtectedRoute>
+              <OrderDetailsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/services"
           element={
             <ProtectedRoute>
               <ServicesPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/partners"
+          element={
+            <ProtectedRoute>
+              <PartnersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <ProtectedRoute>
+              <ContactQueriesPage />
             </ProtectedRoute>
           }
         />

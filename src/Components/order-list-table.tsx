@@ -94,7 +94,7 @@ const OrderListTable = observer(() => {
                 <TableCell>
                   <Chip label={order.status} color={getStatusColor(order.status)} size="small" />
                 </TableCell>
-                <TableCell align="right">${order.totalAmount}</TableCell>
+                <TableCell align="right">₹{order.totalAmount}</TableCell>
                 <TableCell>{order.partnerAssigned || "-"}</TableCell>
                 <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell>
@@ -109,7 +109,7 @@ const OrderListTable = observer(() => {
           </TableBody>
         </Table>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50]}
+          rowsPerPageOptions={[10, 25, 50, 100]}
           component="div"
           count={orderStore.total}
           rowsPerPage={orderStore.filters.limit}

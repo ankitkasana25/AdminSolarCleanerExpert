@@ -20,7 +20,7 @@ import {
   People as PeopleIcon,
   ShoppingCart as OrdersIcon,
   Build as ServicesIcon,
-  Image as MediaIcon,
+  Handshake as HandshakeIcon,
   Mail as ContactIcon,
   Logout as LogoutIcon,
   Menu as MenuIcon,
@@ -38,9 +38,9 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: "Dashboard", path: "/dashboard", icon: <DashboardIcon /> },
   { label: "Users", path: "/users", icon: <PeopleIcon /> },
+  { label: "Partners", path: "/partners", icon: <HandshakeIcon /> },
   { label: "Orders", path: "/orders", icon: <OrdersIcon /> },
   { label: "Services", path: "/services", icon: <ServicesIcon /> },
-  { label: "Media Gallery", path: "/media", icon: <MediaIcon /> },
   { label: "Contact Queries", path: "/contact", icon: <ContactIcon /> },
 ]
 

@@ -32,12 +32,12 @@ const Dashboard = observer(() => {
                     <KPICard title="Open Orders" value={kpi.openOrders} icon={<OrdersIcon />} color="#ed6c02" trend={-2} />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
-                    <KPICard title="Total Revenue" value={`$${kpi.revenue}`} icon={<RevenueIcon />} color="#9c27b0" trend={18} />
+                    <KPICard title="Total Revenue" value={`₹${kpi.revenue}`} icon={<RevenueIcon />} color="#9c27b0" trend={18} />
                 </Grid>
             </Grid>
 
             <Grid container spacing={3}>
-                <Grid item xs={12} md={8}>
+                <Grid item xs={12}>
                     <RecentOrdersWidget />
                 </Grid>
                 <Grid item xs={12} md={4}>

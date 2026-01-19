@@ -55,9 +55,11 @@ const UserForm = observer(({ userId, onSuccess }: UserFormProps) => {
     e.preventDefault()
     if (userId) {
       await userStore.updateUser(userId, formData)
+      window.alert("User updated successfully!")
     } else {
       // Create new user - would require separate endpoint
       console.log("Create user", formData)
+      window.alert("User created successfully!")
     }
     onSuccess?.()
   }

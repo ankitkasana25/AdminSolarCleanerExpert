@@ -36,7 +36,7 @@ const Login = observer(() => {
                 xs={12}
                 md={6}
                 sx={{
-                    background: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)", // Premium subtle gradient
+                    background: "linear-gradient(135deg, #0d81fc 0%, #065caf 100%)", // Theme color gradient
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -52,25 +52,25 @@ const Login = observer(() => {
                     left: '-10%',
                     width: '50%',
                     height: '50%',
-                    background: 'radial-gradient(circle, rgba(13, 129, 252, 0.1) 0%, rgba(255,255,255,0) 70%)',
+                    background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255,255,255,0) 70%)',
                     borderRadius: '50%',
                     zIndex: 0
                 }} />
 
                 <Typography variant="h2" sx={{
-                    fontSize: "22px",
+                    fontSize: "32px", // Increased for better impact on colored bg
                     fontWeight: 800,
                     mb: 2,
-                    letterSpacing: -1.5,
-                    color: "#1a1a1a",
-                    fontFamily: "'Outfit', sans-serif", // Ensure Outfit is used
+                    letterSpacing: -0.5,
+                    color: "#ffffff",
+                    fontFamily: "'Outfit', sans-serif",
                     zIndex: 1,
-                    textShadow: "0 4px 6px rgba(0,0,0,0.05)"
+                    textShadow: "0 4px 10px rgba(0,0,0,0.2)"
                 }}>
                     Solar Cleaner Expert
                 </Typography>
                 <Typography variant="h5" sx={{
-                    color: "text.secondary",
+                    color: "rgba(255,255,255,0.9)",
                     fontWeight: 500,
                     zIndex: 1,
                     letterSpacing: 0.5
